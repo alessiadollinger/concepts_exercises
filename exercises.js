@@ -26,6 +26,13 @@
 //   sumOfEvens([1, 2, 3, 4]) -> 6
 // ---------------------------------------------------------------------
 function sumOfEvens(numbers) {
+    let sum = 0;
+    for (let i = 0; i < numbers.length; i++) {
+        if (numbers[i] % 2 === 0) {
+            sum = sum + numbers[i];
+        }
+    }
+    return sum;
 }
 
 
@@ -37,6 +44,16 @@ function sumOfEvens(numbers) {
 //   dayName(3) -> "Wednesday"
 // ---------------------------------------------------------------------
 function dayName(dayNumber) {
+    switch (dayNumber) {
+        case 1: return "Monday";
+        case 2: return "Tuesday";
+        case 3: return "Wednesday";
+        case 4: return "Thursday";
+        case 5: return "Friday";
+        case 6: return "Saturday";
+        case 7: return "Sunday";
+        default: return "Invalid";
+    }
 }
 
 
@@ -48,6 +65,18 @@ function dayName(dayNumber) {
 //   countVowels("Hello World") -> 3
 // ---------------------------------------------------------------------
 function countVowels(text) {
+    let count = 0;
+    for (let i = 0; i < text.length; i++) {
+        switch (text[i]) {
+            case "a": case "e": case "i": case "o": case "u":
+            case "A": case "E": case "I": case "O": case "U":
+                count++;
+                break;
+            default:
+                break;
+        }
+    }
+    return count;
 }
 
 
@@ -59,6 +88,22 @@ function countVowels(text) {
 //   fizzBuzz(5) -> "1, 2, Fizz, 4, Buzz"
 // ---------------------------------------------------------------------
 function fizzBuzz(n) {
+    let result = "";
+    for (let i = 1; i <= n; i++) {
+        if (i > 1) {
+            result = result + ", ";
+        }
+        if (i % 3 === 0 && i % 5 === 0) {
+            result = result + "FizzBuzz";
+        } else if (i % 3 === 0) {
+            result = result + "Fizz";
+        } else if (i % 5 === 0) {
+            result = result + "Buzz";
+        } else {
+            result = result + i;
+        }
+    }
+    return result;
 }
 
 
@@ -70,6 +115,16 @@ function fizzBuzz(n) {
 //   isPalindrome("level") -> true
 // ---------------------------------------------------------------------
 function isPalindrome(word) {
+    let left = 0;
+    let right = word.length - 1;
+    while (left < right) {
+        if (word[left] !== word[right]) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+    return true;
 }
 
 
@@ -83,6 +138,16 @@ function isPalindrome(word) {
 //             ***
 // ---------------------------------------------------------------------
 function buildTriangle(height) {
+    let result = "";
+    for (let row = 1; row <= height; row++) {
+        if (row > 1) {
+            result = result + "\n";
+        }
+        for (let star = 0; star < row; star++) {
+            result = result + "*";
+        }
+    }
+    return result;
 }
 
 
@@ -93,6 +158,14 @@ function buildTriangle(height) {
 //   countWeekendDays([1, 6, 7, 3]) -> 2
 // ---------------------------------------------------------------------
 function countWeekendDays(dayNumbers) {
+    let count = 0;
+    for (let i = 0; i < dayNumbers.length; i++) {
+        const name = dayName(dayNumbers[i]);
+        if (name === "Saturday" || name === "Sunday") {
+            count++;
+        }
+    }
+    return count;
 }
 
 
@@ -103,6 +176,17 @@ function countWeekendDays(dayNumbers) {
 //   pointsToGrade(85) -> 2
 // ---------------------------------------------------------------------
 function pointsToGrade(points) {
+     if (points >= 90) {
+        return 1;
+    } else if (points >= 80) {
+        return 2;
+    } else if (points >= 65) {
+        return 3;
+    } else if (points >= 50) {
+        return 4;
+    } else {
+        return 5;
+    }
 }
 
 
@@ -115,6 +199,16 @@ function pointsToGrade(points) {
 //       5 Insufficient
 // ---------------------------------------------------------------------
 function gradeReport(student) {
+    const grade = pointsToGrade(student.points);
+    let word;
+    switch (grade) {
+        case 1: word = "Excellent"; break;
+        case 2: word = "Good"; break;
+        case 3: word = "Satisfactory"; break;
+        case 4: word = "Sufficient"; break;
+        case 5: word = "Insufficient"; break;
+    }
+    return student.name + ": " + grade + " (" + word + ")";
 }
 
 
@@ -127,6 +221,20 @@ function gradeReport(student) {
 //   rockPaperScissors("rock", "paper") -> "Player 2 wins"
 // ---------------------------------------------------------------------
 function rockPaperScissors(choice1, choice2) {
+    const valid1 = choice1 === "rock" || choice1 === "paper" || choice1 === "scissors";
+    const valid2 = choice2 === "rock" || choice2 === "paper" || choice2 === "scissors";
+    if (!valid1 || !valid2) {
+        return "Invalid input";
+    }
+    if (choice1 === choice2) {
+        return "Draw";
+    }
+    if ((choice1 === "rock" && choice2 === "scissors") ||
+        (choice1 === "scissors" && choice2 === "paper") ||
+        (choice1 === "paper" && choice2 === "rock")) {
+        return "Player 1 wins";
+    }
+    return "Player 2 wins";
 }
 
 
@@ -137,6 +245,16 @@ function rockPaperScissors(choice1, choice2) {
 // highest age, return the one that comes first. Empty array gives "".
 // ---------------------------------------------------------------------
 function findOldest(people) {
+    if (people.length === 0) {
+        return "";
+    }
+    let oldest = people[0];
+    for (let i = 1; i < people.length; i++) {
+        if (people[i].age > oldest.age) {
+            oldest = people[i];
+        }
+    }
+    return oldest.name;
 }
 
 
@@ -148,6 +266,13 @@ function findOldest(people) {
 //     -> ["Tom"]
 // ---------------------------------------------------------------------
 function namesAtLeastAge(people, minAge) {
+    const names = [];
+    for (let i = 0; i < people.length; i++) {
+        if (people[i].age >= minAge) {
+            names.push(people[i].name);
+        }
+    }
+    return names;
 }
 
 
@@ -159,6 +284,15 @@ function namesAtLeastAge(people, minAge) {
 //   cartTotal([{ item: "Pen", price: 2, quantity: 10 }]) -> 18
 // ---------------------------------------------------------------------
 function cartTotal(cart) {
+    let total = 0;
+    for (let i = 0; i < cart.length; i++) {
+        let itemTotal = cart[i].price * cart[i].quantity;
+        if (cart[i].quantity >= 10) {
+            itemTotal = itemTotal * 0.9;
+        }
+        total = total + itemTotal;
+    }
+    return total;
 }
 
 
@@ -169,6 +303,17 @@ function cartTotal(cart) {
 //   isPrime(7) -> true,  isPrime(9) -> false
 // ---------------------------------------------------------------------
 function isPrime(n) {
+    if (n < 2) {
+        return false;
+    }
+    let divisor = 2;
+    while (divisor * divisor <= n) {
+        if (n % divisor === 0) {
+            return false;
+        }
+        divisor++;
+    }
+    return true;
 }
 
 
@@ -179,6 +324,13 @@ function isPrime(n) {
 //   primesUpTo(10) -> [2, 3, 5, 7]
 // ---------------------------------------------------------------------
 function primesUpTo(n) {
+    const primes = [];
+    for (let i = 2; i <= n; i++) {
+        if (isPrime(i)) {
+            primes.push(i);
+        }
+    }
+    return primes;
 }
 
 
@@ -193,6 +345,32 @@ function primesUpTo(n) {
 //     -> { wordCount: 4, longestWord: "quick" }
 // ---------------------------------------------------------------------
 function wordStatistics(sentence) {
+    let wordCount = 0;
+    let longestWord = "";
+    let currentWord = "";
+
+    for (let i = 0; i < sentence.length; i++) {
+        if (sentence[i] === " ") {
+            if (currentWord.length > 0) {
+                wordCount++;
+                if (currentWord.length > longestWord.length) {
+                    longestWord = currentWord;
+                }
+                currentWord = "";
+            }
+        } else {
+            currentWord = currentWord + sentence[i];
+        }
+    }
+
+    if (currentWord.length > 0) {
+        wordCount++;
+        if (currentWord.length > longestWord.length) {
+            longestWord = currentWord;
+        }
+    }
+
+    return { wordCount: wordCount, longestWord: longestWord };
 }
 
 
